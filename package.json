@@ -1,0 +1,30 @@
+{
+  "name": "misport",
+  "version": "1.0.0",
+  "description": "A way to see what's running on a port and get rid of it",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape tests/**/*-test.js"
+  },
+  "bin": {
+    "misport": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanlabouve/misport.git"
+  },
+  "keywords": [
+    "port"
+  ],
+  "author": "@ryanlabouve",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ryanlabouve/misport/issues"
+  },
+  "homepage": "https://github.com/ryanlabouve/misport#readme",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "lodash": "^4.6.1",
+    "tape": "^4.5.1"
+  }
+}
