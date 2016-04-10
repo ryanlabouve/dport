@@ -1,6 +1,6 @@
 {
   "name": "dport",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "A way to see what's running on a port and get rid of it",
   "main": "index.js",
   "scripts": {
