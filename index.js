@@ -37,7 +37,11 @@ function runLsof(port) {
 
     debug(activeProcess);
 
-    killAProcess(activeProcess);
+    if(activeProcess) {
+      killAProcess(activeProcess);
+    } else {
+      console.log('port already cleared');
+    }
   });
 }
 
