@@ -1,50 +1,19 @@
 #!/usr/bin/env node
-var util = require('util');
-var exec = require('child_process').exec;
-var stdoutToObj = require('./lib/std-to-obj');
-var killAProcess = require('./lib/kill-a-process');
-var _ = require('lodash');
 var debug = require('debug')('main');
-
-var child;
+var runLsof = require('./lib/run-lsof');
 
 var program = require('commander')
-  .version('1.0.0')
-  .option('-k, --kill', 'Kill this process after it\'s found.');
-
-var portOfInterest = _.get(process.argv, 2);
-
-if (!portOfInterest) {
-  throw "Must Provide Port";
-}
+  .version(require('./package.json').version)
+  .option('-k, --kill', 'Kill this process after it\'s found.')
+  .parse(process.argv);
 
 program.on('--help', function() {
   debug('Example: `dport 3000`');
   debug('>>> info about what\'s running');
 });
 
-function runLsof(port) {
-  var portLookup = ["lsof -i :", port].join('');
-  debug("Running lookup: ", portLookup);
-
-  child = exec(portLookup, function(err, stdout, stderr) {
-    var lsofResults = stdoutToObj(stdout, /(LISTEN)/);
-    debug('~> Found ' + lsofResults.length + ' result(s)');
-
-    var activeProcess = _.find(lsofResults, function(p) {
-      return _.get(p, '_active') === true;
-    });
-
-    debug(activeProcess);
-
-    if(activeProcess) {
-      killAProcess(activeProcess);
-    } else {
-      console.log('port already cleared');
-    }
-  });
+if (!program.args.length) {
+  program.help();
+} else {
+  runLsof(program.args[0]);
 }
-
-
-runLsof(portOfInterest);
-program.parse(process.argv);
