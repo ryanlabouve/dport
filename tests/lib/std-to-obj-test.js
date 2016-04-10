@@ -4,19 +4,19 @@ var stdToObj = require('../../lib/std-to-obj');
 test('stdToObj', function (t) {
   t.plan(6);
 
-  noOutput = '';
+  var noOutput = '';
   t.deepEqual(
     stdToObj(noOutput),
     {},
     'No input should yield empty object');
 
-  onlyFirstRow = 'TITLE1 TITLE2 TITLE3 TITLE4';
+  var onlyFirstRow = 'TITLE1 TITLE2 TITLE3 TITLE4';
   t.deepEqual(
     stdToObj(onlyFirstRow),
     [],
     'Only passing titles should result in empty object');
 
-  happyPath= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3 val4';
+  var happyPath= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3 val4';
   t.deepEqual(
     stdToObj(happyPath),
     [
@@ -30,7 +30,7 @@ test('stdToObj', function (t) {
     'Happy path works'
   );
 
-  tooManyTitles= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3';
+  var tooManyTitles= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3';
   t.deepEqual(
     stdToObj(tooManyTitles),
     [
@@ -44,7 +44,7 @@ test('stdToObj', function (t) {
     'Missing properties should be undefined'
   );
 
-  tooManyValues= 'TITLE1 TITLE2 TITLE3\nval1 val2 val3 val4';
+  var tooManyValues= 'TITLE1 TITLE2 TITLE3\nval1 val2 val3 val4';
   t.deepEqual(
     stdToObj(tooManyValues),
     [
@@ -57,7 +57,7 @@ test('stdToObj', function (t) {
     'Extra properties should be thrown away'
   );
 
-  tooManyValues= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3 val4\n';
+  var tooManyValues= 'TITLE1 TITLE2 TITLE3 TITLE4\nval1 val2 val3 val4\n';
   t.deepEqual(
     stdToObj(tooManyValues),
     [
@@ -70,4 +70,27 @@ test('stdToObj', function (t) {
     ],
     'Extra newlines should not result in another row'
   );
+});
+
+test('stdToObj marked as active', function (t) {
+  t.plan(3);
+
+  var happyPath = 'TITLE1 TITLE2 TITLE3\nval1 val2 val3 (LISTEN)';
+  var happyPathRes = stdToObj(happyPath, /(LISTEN)/);
+  t.equal(
+    happyPathRes[0]['_active'],
+    true,
+    'found active marker and marked active');
+
+  var invalidPath = 'TITLE1 TITLE2 TITLE3\nval1 val2 val3';
+  t.equal(
+    stdToObj(invalidPath, /(LISTEN)/)[0]['_active'],
+    false,
+    'didn\'t find active marker and marked active');
+
+  var undefinedPath = 'TITLE1 TITLE2 TITLE3\nval1 val2 val3';
+  t.equal(
+    stdToObj(undefinedPath)['_active'],
+    undefined,
+    'didn\'t pass active marker, so should be undefined');
 });
