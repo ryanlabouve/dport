@@ -19,9 +19,9 @@
   "author": "@ryanlabouve",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ryanlabouve/misport/issues"
+    "url": "https://github.com/ryanlabouve/dport/issues"
   },
-  "homepage": "https://github.com/ryanlabouve/misport#readme",
+  "homepage": "https://github.com/ryanlabouve/dport#readme",
   "dependencies": {
     "commander": "^2.9.0",
     "debug": "^2.2.0",

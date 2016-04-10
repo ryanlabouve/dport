@@ -19,7 +19,7 @@ if (!portOfInterest) {
 }
 
 program.on('--help', function() {
-  debug('Example: `misport 3000`');
+  debug('Example: `dport 3000`');
   debug('>>> info about what\'s running');
 });
 
@@ -41,17 +41,6 @@ function runLsof(port) {
   });
 }
 
-function killAProcess(activeProcess) {
-  var activePID = _.get(activeProcess, 'PID');
-  debug('~*~*~*~', activePID);
-  var killCommand = ["kill -9", activePID].join(' ');
-  debug(killCommand);
-  // exec(killCommand, function(err,stdout, stderr) {
-  //   if (err) throw err;
-  //   console.log("misport success");
-  // });
-  //
-}
 
 runLsof(portOfInterest);
 program.parse(process.argv);
