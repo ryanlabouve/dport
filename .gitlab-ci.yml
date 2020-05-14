@@ -13,3 +13,5 @@ test_async:
     - npm install
     - npm test
 
+include:
+  - template: Dependency-Scanning.gitlab-ci.yml
