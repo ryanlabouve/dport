@@ -15,3 +15,14 @@ test_async:
 
 include:
   - template: Dependency-Scanning.gitlab-ci.yml
+  - template: SAST.gitlab-ci.yml
+
+sast2:
+  stage: test
+  image: 
+    name: appthreat/sast-scan
+  script:
+    - scan --src ${CI_PROJECT_DIR} --type nodejs --out_dir ${CI_PROJECT_DIR}/reports
+  artifacts:
+    paths:
+      - $CI_PROJECT_DIR/reports/nodejsscan-report.json
