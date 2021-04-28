@@ -1,0 +1,24 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "11:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: tape
+    versions:
+    - 5.1.1
+    - 5.2.0
+    - 5.2.1
+  - dependency-name: commander
+    versions:
+    - 7.0.0
+    - 7.1.0
+  - dependency-name: lodash
+    versions:
+    - 4.17.20
+  - dependency-name: inquirer
+    versions:
+    - 7.3.3
